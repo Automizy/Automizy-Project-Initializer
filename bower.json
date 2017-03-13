@@ -1,0 +1,34 @@
+{
+  "name": "automizy-project-initializer",
+  "description": "AutomizyProjectInitializerDescription",
+  "keywords":[
+    "automizy-project-initializer",
+    "automizy"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "build",
+    "AUTHORS.txt",
+    "Gruntfile.js",
+    "package.json"
+  ],
+  "moduleType":[
+    "globals",
+    "amd"
+  ],
+  "main":[
+    "src/automizy-project-initializer.js",
+    "src/automizy-project-initializer.css"
+  ],
+  "authors":[
+    { "name": "Gyorgy Reti", "email": "gyorgy.reti@automizy.com" }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/automizy/automizy-project-initializer.git"
+  },
+  "dependencies": {
+	"requirejs": "https://github.com/jrburke/requirejs.git#master"
+  }
+}

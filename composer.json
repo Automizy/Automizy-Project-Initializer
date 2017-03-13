@@ -1,0 +1,24 @@
+{
+    "name": "automizy/automizy-project-initializer",
+    "description": "Initialize Your Automizy Projects",
+    "type": "library",
+    "keywords": [
+        "automizy-project-initializer",
+        "automizy"
+    ],
+    "homepage": "https://github.com/Automizy/Automizy-Project-Initializer",
+    "authors":[
+        { "name": "Gyorgy Reti", "email": "gyorgy.reti@automizy.com" }
+    ],
+    "support": {
+        "email": "gyorgy.reti@automizy.com",
+        "issues": "https://github.com/Automizy/Automizy-Project-Initializer/issues",
+        "wiki": "https://github.com/Automizy/Automizy-Project-Initializer/wiki",
+        "source": "https://github.com/Automizy/Automizy-Project-Initializer",
+        "docs": "https://github.com/Automizy/Automizy-Project-Initializer"
+    },
+    "prefer-stable": true,
+    "config": {
+        "vendor-dir":".composer"
+    }
+}
