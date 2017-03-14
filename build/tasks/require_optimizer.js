@@ -7,12 +7,11 @@ module.exports = function( grunt ) {
 		data = data.toString().replace(/requirejs.config[^;]*;/, '');
 		data = data.toString().replace(/define\.amd[^;]*;/, '');
 		data = data.toString().replace(/(define|require)\([^{]*{/g, '/*GRUNT_FLAG_1*/');
-		data = data.toString().replace(/}\s*\)\s*;[\s]*\/\*GRUNT_FLAG_1\*\//g, '/*GRUNT_FLAG_2*/');
-		data = data.toString().replace(/}\s*\)\s*;\s*$/, '/*GRUNT_FLAG_3*/');
-		
+		data = data.toString().replace(/}\s*\)\s*;[\s]*\/\*GRUNT_FLAG_1\*\//g, '');
+		data = data.toString().replace(/}\s*\)\s*;\s*$/, '');
 		data = data.toString().replace(/\/\*GRUNT_FLAG_1\*\//g, "");
-		data = data.toString().replace(/\/\*GRUNT_FLAG_2\*\//g, "");
-		data = data.toString().replace(/\/\*GRUNT_FLAG_3\*\//g, "");
+
+		data = '(function(){' + data + '})();';
 		
 		fs.writeFileSync(jsFile, data);
 	});
