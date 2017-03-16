@@ -1,7 +1,7 @@
 define([
     "js/core/core",
     "js/core/runTheFunctions"
-], function () {
+], function ($API) {
 
     $API.functions.pluginsLoadedFunctions = [];
     $API.pluginsLoaded = function(f){

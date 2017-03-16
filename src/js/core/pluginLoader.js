@@ -1,6 +1,6 @@
 define([
     "js/core/core"
-], function () {
+], function ($API) {
     $API.pluginLoader = new function () {
         var t = this;
         t.d = {

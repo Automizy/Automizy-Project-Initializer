@@ -1,6 +1,6 @@
 define([
     "js/core/core"
-], function () {
+], function ($API) {
     $API.id = function(id){
         if (typeof id !== 'undefined') {
             this.d.id = id;

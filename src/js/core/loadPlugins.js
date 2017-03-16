@@ -2,7 +2,7 @@ define([
     "js/core/core",
     "js/core/pluginLoader",
     "js/events/pluginsLoaded"
-], function () {
+], function ($API) {
     $API.loadPlugins = function () {
         (function () {
             if (typeof window.jQuery === 'undefined') {

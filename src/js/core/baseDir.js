@@ -1,6 +1,6 @@
 define([
     "js/core/core"
-], function () {
+], function ($API) {
     $API.baseDir = function(value){
         if (typeof value !== 'undefined') {
             $API.config.dir = value;

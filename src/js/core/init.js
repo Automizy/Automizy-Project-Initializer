@@ -1,7 +1,7 @@
 define([
     "js/core/core",
     "js/core/loadPlugins"
-], function () {
+], function ($API) {
     $API.init = function () {
         if(typeof $API.automizyInited === 'undefined'){
             $API.automizyInited = false;

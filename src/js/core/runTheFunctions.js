@@ -1,6 +1,6 @@
 define([
     "js/core/core"
-], function () {
+], function ($API) {
 
     $API.runTheFunctions = function(functions, thisParameter, parameters){
         var functions = functions || [];
