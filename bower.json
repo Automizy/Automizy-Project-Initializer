@@ -5,7 +5,7 @@
     "automizy-project-initializer",
     "automizy"
   ],
-  "private": true,
+  "private": false,
   "ignore": [
     "**/.*",
     "build",
