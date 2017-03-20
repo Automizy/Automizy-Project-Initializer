@@ -3,7 +3,13 @@ define([], function () {
     window.AutomizyGlobalPlugins = window.AutomizyGlobalPlugins || {i:0};
     window.AutomizyGlobalZIndex = window.AutomizyGlobalZIndex || 2000;
     window.AutomizyProject = function(obj){
-        this.initializer.plugins = obj.plugins || [];
+        var t = this;
+        if(typeof obj.variables !== 'undefined'){
+            for(var i in obj.variables){
+                t[i] = obj.variables[i];
+            }
+        }
+        t.initializer.plugins = obj.plugins || [];
     };
     var initAutomizyProject = function(t){
         t.version = '0.1.1';
