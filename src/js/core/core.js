@@ -19,6 +19,7 @@ define([], function () {
         t.buttons = {};
         t.forms = {};
         t.functions = {};
+        t.modules = {};
         t.xhr = {};
         t.config = {
             dir:'.',
@@ -30,7 +31,5 @@ define([], function () {
     };
     var $API = window.AutomizyProject.prototype;
     initAutomizyProject($API);
-
-    return $API;
 
 });

@@ -8,6 +8,7 @@ require([
 
     "js/events/pluginsLoaded",
     "js/events/ready",
+    "js/events/layoutReady",
 
     "js/functions/id"
 ], function () {

@@ -19,6 +19,7 @@
         t.buttons = {};
         t.forms = {};
         t.functions = {};
+        t.modules = {};
         t.xhr = {};
         t.config = {
             dir:'.',
@@ -30,8 +31,6 @@
     };
     var $API = window.AutomizyProject.prototype;
     initAutomizyProject($API);
-
-    return $API;
 
 
     $API.pluginLoader = new function () {
@@ -303,6 +302,22 @@
         }
         $API.runTheFunctions($API.functions.readyFunctions);
         $API.automizyReady = true;
+        return $API;
+    };
+
+
+
+    $API.functions.layoutReadyFunctions = [];
+    $API.layoutReady = function(f){
+        if(typeof f === 'function') {
+            $API.functions.layoutReadyFunctions.push(f);
+            if($API.automizyLayoutReady){
+                f.apply($API, []);
+            }
+            return $API;
+        }
+        $API.runTheFunctions($API.functions.layoutReadyFunctions);
+        $API.automizyLayoutReady = true;
         return $API;
     };
 
