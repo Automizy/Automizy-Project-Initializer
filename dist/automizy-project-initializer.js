@@ -332,6 +332,6 @@ window.AutomizyProject = function(obj){
         return this.d.id;
     };
 
-    console.log('%c A module was created by AutomizyProjectInitializer! ', 'background: #000000; color: #ffac65; font-size:14px');
+    console.log('%c A module was created by AutomizyProjectInitializer! ', 'background: #000000; color: #eeffbb; font-size:14px; border-radius:0 12px 12px 0');
 
 }
