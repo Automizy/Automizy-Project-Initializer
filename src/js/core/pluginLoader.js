@@ -51,7 +51,7 @@ define([
                 plugin.completeFunctions[i].apply(plugin, [true]);
                 plugin.completed = true;
             }
-            console.log(plugin.name + ' loaded in AutomizyProjectInitializer (' + t.d.loadedPluginsCount + '/' + t.d.allPluginsCount + ')');
+            //console.log(plugin.name + ' loaded in AutomizyProjectInitializer (' + t.d.loadedPluginsCount + '/' + t.d.allPluginsCount + ')');
             if (t.d.loadedPluginsCount === t.d.allPluginsCount && t.d.globalPluginsCount === t.d.loadedGlobalPluginsCount && t.d.completeFunctionReady) {
                 t.d.completeFunctionReady = false;
                 t.complete();

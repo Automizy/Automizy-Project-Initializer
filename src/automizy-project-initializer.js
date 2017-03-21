@@ -12,5 +12,5 @@ require([
 
     "js/functions/id"
 ], function () {
-    console.log('%c AutomizyProjectInitializer loaded! ', 'background: #000000; color: #bada55; font-size:14px');
+    console.log('%c A module was created by AutomizyProjectInitializer! ', 'background: #000000; color: #ffac65; font-size:14px');
 });
