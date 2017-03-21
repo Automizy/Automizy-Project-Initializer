@@ -5,16 +5,17 @@ define([
 
     $API.functions.pluginsLoadedFunctions = [];
     $API.pluginsLoaded = function(f){
+        var t = this;
         if(typeof f === 'function'){
-            $API.functions.pluginsLoadedFunctions.push(f);
-            if($API.automizyPluginsLoaded){
-                f.apply($API, []);
+            t.functions.pluginsLoadedFunctions.push(f);
+            if(t.automizyPluginsLoaded){
+                f.apply(t, []);
             }
-            return $API;
+            return t;
         }
-        $API.runTheFunctions($API.functions.pluginsLoadedFunctions, $API, []);
-        $API.automizyPluginsLoaded = true;
-        return $API;
+        t.runTheFunctions(t.functions.pluginsLoadedFunctions, t, []);
+        t.automizyPluginsLoaded = true;
+        return t;
     };
 
 });

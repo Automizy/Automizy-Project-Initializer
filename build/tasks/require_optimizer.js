@@ -11,7 +11,12 @@ module.exports = function( grunt ) {
 		data = data.toString().replace(/}\s*\)\s*;\s*$/, '');
 		data = data.toString().replace(/\/\*GRUNT_FLAG_1\*\//g, "");
 
-		data = '(function(){' + data + '})();';
+		data = '' +
+			'window.AutomizyGlobalPlugins = window.AutomizyGlobalPlugins || {i:0};\r\n' +
+			'window.AutomizyGlobalZIndex = window.AutomizyGlobalZIndex || 2000;\r\n' +
+			'window.AutomizyProject = function(obj){\r\n' +
+			'	' + data + '\r\n' +
+			'}';
 		
 		fs.writeFileSync(jsFile, data);
 	});

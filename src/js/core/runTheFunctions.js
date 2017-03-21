@@ -4,7 +4,7 @@ define([
 
     $API.runTheFunctions = function(functions, thisParameter, parameters){
         var functions = functions || [];
-        var thisParameter = thisParameter || $API;
+        var thisParameter = thisParameter || this;
         var parameters = parameters || [];
         for(var i = 0; i < functions.length; i++) {
             functions[i].apply(thisParameter, parameters);

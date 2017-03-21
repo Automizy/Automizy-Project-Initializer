@@ -1,19 +1,21 @@
 define([
-    "js/core/core"
+    "js/core/core",
+    "js/core/runTheFunctions"
 ], function ($API) {
 
     $API.functions.layoutReadyFunctions = [];
     $API.layoutReady = function(f){
+        var t = this;
         if(typeof f === 'function') {
-            $API.functions.layoutReadyFunctions.push(f);
-            if($API.automizyLayoutReady){
-                f.apply($API, []);
+            t.functions.layoutReadyFunctions.push(f);
+            if(t.automizyLayoutReady){
+                f.apply(t, []);
             }
-            return $API;
+            return t;
         }
-        $API.runTheFunctions($API.functions.layoutReadyFunctions);
-        $API.automizyLayoutReady = true;
-        return $API;
+        t.runTheFunctions(t.functions.layoutReadyFunctions);
+        t.automizyLayoutReady = true;
+        return t;
     };
 
 });

@@ -5,16 +5,16 @@ define([
 
     $API.functions.readyFunctions = [];
     $API.ready = function(f){
+        var t = this;
         if(typeof f === 'function') {
-            $API.functions.readyFunctions.push(f);
-            if($API.automizyReady){
-                f.apply($API, []);
+            t.functions.readyFunctions.push(f);
+            if(t.automizyReady){
+                f.apply(t, []);
             }
-            return $API;
+            return t;
         }
-        $API.runTheFunctions($API.functions.readyFunctions);
-        $API.automizyReady = true;
-        return $API;
+        t.runTheFunctions(t.functions.readyFunctions);
+        t.automizyReady = true;
+        return t;
     };
-
 });

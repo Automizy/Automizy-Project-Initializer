@@ -1,36 +1,33 @@
-(function(){
+window.AutomizyGlobalPlugins = window.AutomizyGlobalPlugins || {i:0};
+window.AutomizyGlobalZIndex = window.AutomizyGlobalZIndex || 2000;
+window.AutomizyProject = function(obj){
+	
+    
+    var $API = this;
 
-    window.AutomizyGlobalPlugins = window.AutomizyGlobalPlugins || {i:0};
-    window.AutomizyGlobalZIndex = window.AutomizyGlobalZIndex || 2000;
-    window.AutomizyProject = function(obj){
-        var t = this;
-        if(typeof obj.variables !== 'undefined'){
-            for(var i in obj.variables){
-                t[i] = obj.variables[i];
-            }
+    $API.version = '0.1.1';
+    $API.elements = {};
+    $API.dialogs = {};
+    $API.inputs = {};
+    $API.buttons = {};
+    $API.forms = {};
+    $API.functions = {};
+    $API.modules = {};
+    $API.xhr = {};
+    $API.config = {
+        dir:'.',
+        url:'https://app.automizy.com'
+    };
+    $API.m = {};
+    $API.d = {};
+    $API.initializer = {};
+
+    if(typeof obj.variables !== 'undefined'){
+        for(var i in obj.variables){
+            $API[i] = obj.variables[i];
         }
-        t.initializer.plugins = obj.plugins || [];
-    };
-    var initAutomizyProject = function(t){
-        t.version = '0.1.1';
-        t.elements = {};
-        t.dialogs = {};
-        t.inputs = {};
-        t.buttons = {};
-        t.forms = {};
-        t.functions = {};
-        t.modules = {};
-        t.xhr = {};
-        t.config = {
-            dir:'.',
-            url:'https://app.automizy.com'
-        };
-        t.m = {};
-        t.d = {};
-        t.initializer = {};
-    };
-    var $API = window.AutomizyProject.prototype;
-    initAutomizyProject($API);
+    }
+    $API.initializer.plugins = obj.plugins || [];
 
 
     $API.pluginLoader = new function () {
@@ -214,7 +211,7 @@
 
     $API.runTheFunctions = function(functions, thisParameter, parameters){
         var functions = functions || [];
-        var thisParameter = thisParameter || $API;
+        var thisParameter = thisParameter || this;
         var parameters = parameters || [];
         for(var i = 0; i < functions.length; i++) {
             functions[i].apply(thisParameter, parameters);
@@ -225,100 +222,105 @@
 
     $API.functions.pluginsLoadedFunctions = [];
     $API.pluginsLoaded = function(f){
+        var t = this;
         if(typeof f === 'function'){
-            $API.functions.pluginsLoadedFunctions.push(f);
-            if($API.automizyPluginsLoaded){
-                f.apply($API, []);
+            t.functions.pluginsLoadedFunctions.push(f);
+            if(t.automizyPluginsLoaded){
+                f.apply(t, []);
             }
-            return $API;
+            return t;
         }
-        $API.runTheFunctions($API.functions.pluginsLoadedFunctions, $API, []);
-        $API.automizyPluginsLoaded = true;
-        return $API;
+        t.runTheFunctions(t.functions.pluginsLoadedFunctions, t, []);
+        t.automizyPluginsLoaded = true;
+        return t;
     };
 
 
     $API.loadPlugins = function () {
-        (function () {
-            if (typeof window.jQuery === 'undefined') {
-                var script = document.createElement("SCRIPT");
-                script.src = $API.config.dir + "/vendor/jquery/jquery.min.js";
-                script.type = 'text/javascript';
-                document.getElementsByTagName("head")[0].appendChild(script);
+        var t = this;
+
+        if (typeof window.jQuery === 'undefined') {
+            var script = document.createElement("SCRIPT");
+            script.src = t.config.dir + "/vendor/jquery/jquery.min.js";
+            script.type = 'text/javascript';
+            document.getElementsByTagName("head")[0].appendChild(script);
+        }
+        var checkReady = function (callback) {
+            if (typeof window.jQuery === 'function') {
+                callback(jQuery);
+            } else {
+                window.setTimeout(function () {
+                    checkReady(callback);
+                }, 100);
             }
-            var checkReady = function (callback) {
-                if (typeof window.jQuery === 'function') {
-                    callback(jQuery);
-                } else {
-                    window.setTimeout(function () {
-                        checkReady(callback);
-                    }, 100);
-                }
-            };
+        };
 
-            checkReady(function ($) {
-                if($API.initializer.plugins.length > 0) {
-                    $API.pluginLoader.plugins($API.initializer.plugins).complete(function () {
-                        $API.pluginsLoaded();
-                    }).run();
-                }else{
-                    $API.pluginsLoaded();
-                }
-            });
+        checkReady(function ($) {
+            if (t.initializer.plugins.length > 0) {
+                t.pluginLoader.plugins(t.initializer.plugins).complete(function () {
+                    t.pluginsLoaded();
+                }).run();
+            } else {
+                t.pluginsLoaded();
+            }
+        });
 
-        })();
     };
 
     $API.init = function () {
-        if(typeof $API.automizyInited === 'undefined'){
-            $API.automizyInited = false;
+        var t = this;
+
+        if(typeof t.automizyInited === 'undefined'){
+            t.automizyInited = false;
         }
 
-        if(!$API.automizyInited){
-            $API.automizyInited = true;
-            $API.loadPlugins();
+        if(!t.automizyInited){
+            t.automizyInited = true;
+            t.loadPlugins();
         }
 
-        return $API;
+        return t;
     };
 
     $API.baseDir = function(value){
+        var t = this;
         if (typeof value !== 'undefined') {
-            $API.config.dir = value;
-            return $API;
+            t.config.dir = value;
+            return t;
         }
-        return $API.config.dir;
+        return t.config.dir;
     };
 
 
     $API.functions.readyFunctions = [];
     $API.ready = function(f){
+        var t = this;
         if(typeof f === 'function') {
-            $API.functions.readyFunctions.push(f);
-            if($API.automizyReady){
-                f.apply($API, []);
+            t.functions.readyFunctions.push(f);
+            if(t.automizyReady){
+                f.apply(t, []);
             }
-            return $API;
+            return t;
         }
-        $API.runTheFunctions($API.functions.readyFunctions);
-        $API.automizyReady = true;
-        return $API;
+        t.runTheFunctions(t.functions.readyFunctions);
+        t.automizyReady = true;
+        return t;
     };
-
 
 
     $API.functions.layoutReadyFunctions = [];
     $API.layoutReady = function(f){
+        var t = this;
         if(typeof f === 'function') {
-            $API.functions.layoutReadyFunctions.push(f);
-            if($API.automizyLayoutReady){
-                f.apply($API, []);
+            t.functions.layoutReadyFunctions.push(f);
+            if(t.automizyLayoutReady){
+                f.apply(t, []);
             }
-            return $API;
+            return t;
         }
-        $API.runTheFunctions($API.functions.layoutReadyFunctions);
-        $API.automizyLayoutReady = true;
-        return $API;
+        t.runTheFunctions(t.functions.layoutReadyFunctions);
+        t.automizyLayoutReady = true;
+        return t;
     };
 
 
@@ -331,4 +333,5 @@
     };
 
     console.log('%c AutomizyProjectInitializer loaded! ', 'background: #000000; color: #bada55; font-size:14px');
-})();
+
+}

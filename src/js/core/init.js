@@ -3,15 +3,17 @@ define([
     "js/core/loadPlugins"
 ], function ($API) {
     $API.init = function () {
-        if(typeof $API.automizyInited === 'undefined'){
-            $API.automizyInited = false;
+        var t = this;
+
+        if(typeof t.automizyInited === 'undefined'){
+            t.automizyInited = false;
         }
 
-        if(!$API.automizyInited){
-            $API.automizyInited = true;
-            $API.loadPlugins();
+        if(!t.automizyInited){
+            t.automizyInited = true;
+            t.loadPlugins();
         }
 
-        return $API;
+        return t;
     };
 });
