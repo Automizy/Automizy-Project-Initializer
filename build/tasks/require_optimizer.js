@@ -17,7 +17,7 @@ module.exports = function( grunt ) {
 			'window.AutomizyGlobalZIndex = window.AutomizyGlobalZIndex || 2000;\r\n' +
 			'window.AutomizyProject = function(obj){\r\n' +
 			'	' + data + '\r\n' +
-			'}';
+			'};';
 		
 		fs.writeFileSync(jsFile, data);
 	});
