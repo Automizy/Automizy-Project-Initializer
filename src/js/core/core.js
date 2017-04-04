@@ -3,6 +3,7 @@ define([], function (obj) {
     var $API = this;
 
     $API.version = '0.1.1';
+    $API.name = obj.name || false;
     $API.elements = {};
     $API.dialogs = {};
     $API.inputs = {};

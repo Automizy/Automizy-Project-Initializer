@@ -7,6 +7,7 @@ window.AutomizyProject = function(obj){
     var $API = this;
 
     $API.version = '0.1.1';
+    $API.name = obj.name || false;
     $API.elements = {};
     $API.dialogs = {};
     $API.inputs = {};
@@ -415,6 +416,6 @@ window.AutomizyProject = function(obj){
         return this.d.id;
     };
 
-    console.log('%c A module was created by AutomizyProjectInitializer! ', 'background: #000000; color: #f7ffde; font-size:14px; border-radius:0 12px 12px 0');
+    console.log('%c ' + ($API.name || 'A module') + ' was created by AutomizyProjectInitializer! ', 'background: #000000; color: #f7ffde; font-size:14px; border-radius:0 12px 12px 0');
 
-}
+};
