@@ -125,7 +125,11 @@ define([
             for (var j = 0; j < plugin.js.length; j++) {
                 deferreds.push($.getScript(plugin.js[j]));
             }
-            plugin.xhr = $.when.apply(null, deferreds).always(function(){
+            plugin.xhr = $.when.apply(null, deferreds);
+            for(var i = 0; i < plugin.xhrAlwaysFunctions.length; i++){
+                plugin.xhr.always(plugin.xhrAlwaysFunctions[i]);
+            }
+            plugin.xhr.always(function(){
                 t.pluginThen(plugin);
             });
 
@@ -170,7 +174,12 @@ define([
                         skipCondition: pluginLocal.skipCondition,
                         css: pluginLocal.css,
                         js: pluginLocal.js,
-                        xhr: false,
+                        xhr: {
+                            always:function(fnc){
+                                this.xhrAlwaysFunctions.push(fnc);
+                            }
+                        },
+                        xhrAlwaysFunctions:[],
                         requiredPlugins: pluginLocal.requiredPlugins || [],
                         completed: false,
                         completeFunctions: [pluginLocal.complete]
