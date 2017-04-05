@@ -223,13 +223,13 @@ window.AutomizyProject = function(obj){
                     } else {
                         hasActivePlugin = true;
                         t.d.globalPluginsCount++;
-                        AutomizyGlobalPlugins[pluginLocal.name].xhr.always(function () {
+                        AutomizyGlobalPlugins[pluginLocal.name].xhr.always.apply(AutomizyGlobalPlugins[pluginLocal.name], [function () {
                             t.d.loadedGlobalPluginsCount++;
                             if (t.d.loadedPluginsCount === t.d.allPluginsCount && t.d.globalPluginsCount === t.d.loadedGlobalPluginsCount && t.d.completeFunctionReady) {
                                 t.d.completeFunctionReady = false;
                                 t.complete();
                             }
-                        })
+                        }]);
                     }
                 }
             }
