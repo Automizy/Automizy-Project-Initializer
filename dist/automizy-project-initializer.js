@@ -16,6 +16,8 @@ window.AutomizyProject = function(obj){
     $API.functions = obj.functions || {};
     $API.modules = obj.modules || {};
     $API.xhr = obj.xhr || {};
+    $API.permissions = obj.permissions || {};
+    $API.permissionGroups = obj.permissionGroups || {};
     $API.config = obj.config || {
         dir:'.',
         url:'https://app.automizy.com'
@@ -59,14 +61,36 @@ window.AutomizyProject = function(obj){
                     plugin.complete = plugin.complete || function () {};
                     plugin.css = plugin.css || [];
                     plugin.js = plugin.js || [];
+                    plugin.dir = plugin.dir || '';
                     plugin.name = plugin.name || ('automizy-plugin-' + ++AutomizyGlobalPluginsIndex);
                     plugin.requiredPlugins = plugin.requiredPlugins || [];
                     if (typeof plugin.js === 'string') {
                         plugin.js = [plugin.js];
                     }
+                    if (typeof plugin.css === 'string') {
+                        plugin.css = [plugin.css];
+                    }
                     if (typeof plugin.requiredPlugins === 'string') {
                         plugin.requiredPlugins = [plugin.requiredPlugins];
                     }
+
+                    if(plugin.dir === '' && plugin.js.length > 0){
+                        var uri = plugin.js[0];
+                        var lastSlashIndex = uri.lastIndexOf('/');
+                        if(lastSlashIndex <= 0){
+                            plugin.dir = '';
+                        }else {
+                            plugin.dir = uri.substring(0, lastSlashIndex);
+                        }
+                    }
+
+                    for(var j = 0; j < plugin.js.length; j++){
+                        plugin.js[j] = plugin.js[j];
+                    }
+                    for(var j = 0; j < plugin.css.length; j++){
+                        plugin.css[j] = plugin.css[j];
+                    }
+
                     t.d.plugins.push(plugin);
                 }
 
@@ -102,16 +126,6 @@ window.AutomizyProject = function(obj){
             link.type = 'text/css';
             link.href = cssFile;
             head.appendChild(link);
-            return this;
-        };
-        t.parseCss = function(css){
-            if (typeof css === 'string') {
-                t.insertCss(css);
-                return this;
-            }
-            for (var j = 0; j < css.length; j++) {
-                t.parseCss(css[j]);
-            }
             return this;
         };
 
@@ -151,10 +165,15 @@ window.AutomizyProject = function(obj){
             var t = this;
             var deferreds = [];
 
-            console.log('%c '+plugin.name + ' started to load ', 'background: #000000; color: #ffffff; font-size:12px; border-radius:0 12px 12px 0');
+            console.log('%c '+plugin.name + ' started to load ('+(plugin.js.join(', '))+')', 'background: #000000; color: #ffffff; font-size:12px; border-radius:0 12px 12px 0');
 
             for (var j = 0; j < plugin.js.length; j++) {
-                deferreds.push($.getScript(plugin.js[j]));
+                deferreds.push($.getScript(plugin.js[j]).fail(function(){
+                    console.error('FAIL to load plugin with Automizy Project Initalizer');
+                    for(var i = 0; i < arguments.length; i++){
+                        console.error(arguments[i]);
+                    }
+                }));
             }
             plugin.xhr = $.when.apply(null, deferreds);
             for(var i = 0; i < plugin.xhrAlwaysFunctions.length; i++){
@@ -246,7 +265,9 @@ window.AutomizyProject = function(obj){
                     continue;
                 }
 
-                t.parseCss(plugin.css);
+                for(var j = 0; j < plugin.css.length; j++) {
+                    t.insertCss(plugin.css[j]);
+                }
 
                 hasActivePlugin = true;
                 (function (plugin) {
@@ -423,6 +444,27 @@ window.AutomizyProject = function(obj){
             return this;
         }
         return this.d.id;
+    };
+
+    $API.permission = function(){
+        if(typeof arguments[0] === 'undefined'){
+            return $API.permissions
+        }
+        if(typeof arguments[0] !== 'object' && typeof arguments[1] === 'undefined'){
+            return $API.permissions[arguments[0]];
+        }
+        if(typeof arguments[0] !== 'object' && typeof arguments[1] !== 'undefined'){
+            $API.permissions[arguments[0]] = arguments[1];
+            return $API;
+        }
+        if(typeof arguments[0] === 'object' && typeof arguments[1] === 'undefined'){
+            for(var i in arguments[0]){
+                $API.permissions[i] = arguments[0][i];
+            }
+            return $API;
+        }
+        
+        return $API;
     };
 
     console.log('%c ' + ($API.name || 'A module') + ' was created by AutomizyProjectInitializer! ', 'background: #000000; color: #f7ffde; font-size:14px; border-radius:0 12px 12px 0');

@@ -12,6 +12,8 @@ define([], function (obj) {
     $API.functions = obj.functions || {};
     $API.modules = obj.modules || {};
     $API.xhr = obj.xhr || {};
+    $API.permissions = obj.permissions || {};
+    $API.permissionGroups = obj.permissionGroups || {};
     $API.config = obj.config || {
         dir:'.',
         url:'https://app.automizy.com'
