@@ -451,7 +451,7 @@ window.AutomizyProject = function(obj){
             return $API.permissions
         }
         if(typeof arguments[0] !== 'object' && typeof arguments[1] === 'undefined'){
-            return $API.permissions[arguments[0]];
+            return $API.permissions[arguments[0]] || false;
         }
         if(typeof arguments[0] !== 'object' && typeof arguments[1] !== 'undefined'){
             $API.permissions[arguments[0]] = arguments[1];
@@ -463,7 +463,7 @@ window.AutomizyProject = function(obj){
             }
             return $API;
         }
-        
+
         return $API;
     };
 
