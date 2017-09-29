@@ -10,6 +10,7 @@ define([], function (obj) {
     $API.buttons = obj.buttons || {};
     $API.forms = obj.forms || {};
     $API.functions = obj.functions || {};
+    $API.events = obj.events || {};
     $API.modules = obj.modules || {};
     $API.xhr = obj.xhr || {};
     $API.permissions = obj.permissions || {};

@@ -1,8 +1,12 @@
 define([
     "js/core/core",
-    "js/core/runTheFunctions"
+    "js/core/runTheFunctions",
+    "js/events/event"
 ], function ($API) {
 
+    /*$API.layoutReady = new $API.m.Event({
+        fireType:2
+    });*/
     $API.functions.layoutReadyFunctions = [];
     $API.layoutReady = function(f){
         var t = this;
