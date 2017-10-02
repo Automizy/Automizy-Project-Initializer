@@ -30,8 +30,8 @@ define([
             return $API.permissions[arguments[0]] || false;
         }
         if(typeof arguments[0] !== 'object' && typeof arguments[1] !== 'undefined'){
-            $API.runTheFunctions($API.functions.permissionChangeFunctions, $API, [arguments[0], arguments[1], $API.permissions[key]]); //key, value, from
-            $API.runTheFunctions($API.functions.permissionChangeFunctionsByKey[arguments[0]] || [], $API, [arguments[1], $API.permissions[key]]); //value, from
+            $API.runTheFunctions($API.functions.permissionChangeFunctions, $API, [arguments[0], arguments[1], $API.permissions[arguments[0]]]); //key, value, from
+            $API.runTheFunctions($API.functions.permissionChangeFunctionsByKey[arguments[0]] || [], $API, [arguments[1], $API.permissions[arguments[0]]]); //value, from
             $API.permissions[arguments[0]] = arguments[1];
             return $API;
         }
