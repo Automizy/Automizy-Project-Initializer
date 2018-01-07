@@ -30,7 +30,11 @@ define([
                     plugin.js = plugin.js || [];
                     plugin.dir = plugin.dir || '';
                     plugin.name = plugin.name || ('automizy-plugin-' + ++AutomizyGlobalPluginsIndex);
+                    plugin.windowVariable = plugin.windowVariable || false;
                     plugin.requiredPlugins = plugin.requiredPlugins || [];
+                    if (typeof plugin.autoload === 'undefined') {
+                        plugin.autoload = true;
+                    }
                     if (typeof plugin.js === 'string') {
                         plugin.js = [plugin.js];
                     }
@@ -180,6 +184,9 @@ define([
 
             for (var i = 0; i < t.d.plugins.length; i++) {
                 var pluginLocal = t.d.plugins[i];
+                if (!pluginLocal.autoload) {
+                    continue;
+                }
                 if (pluginLocal.inited) {
                     continue;
                 }

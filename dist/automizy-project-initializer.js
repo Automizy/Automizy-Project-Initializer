@@ -64,7 +64,11 @@ window.AutomizyProject = function(obj){
                     plugin.js = plugin.js || [];
                     plugin.dir = plugin.dir || '';
                     plugin.name = plugin.name || ('automizy-plugin-' + ++AutomizyGlobalPluginsIndex);
+                    plugin.windowVariable = plugin.windowVariable || false;
                     plugin.requiredPlugins = plugin.requiredPlugins || [];
+                    if (typeof plugin.autoload === 'undefined') {
+                        plugin.autoload = true;
+                    }
                     if (typeof plugin.js === 'string') {
                         plugin.js = [plugin.js];
                     }
@@ -214,6 +218,9 @@ window.AutomizyProject = function(obj){
 
             for (var i = 0; i < t.d.plugins.length; i++) {
                 var pluginLocal = t.d.plugins[i];
+                if (!pluginLocal.autoload) {
+                    continue;
+                }
                 if (pluginLocal.inited) {
                     continue;
                 }
@@ -653,6 +660,48 @@ window.AutomizyProject = function(obj){
             return $API;
         };
         return $API;
+    };
+
+    $API.loadPlugin = function (pluginName, func, ajaxLoader) {
+        func = func || function(){};
+        ajaxLoader = ajaxLoader || false;
+        var pluginConfig = false;
+        for(var i = 0; i < $API.initializer.plugins.length; i++){
+            if($API.initializer.plugins[i].name === pluginName){
+                pluginConfig = $API.initializer.plugins[i];
+                break;
+            }
+        }
+        if(pluginConfig === false){
+            return false;
+        }
+        if (ajaxLoader) {
+            $A.ajaxDocumentCover(1);
+        }
+        return $API.pluginLoader.addPlugin({
+            name: pluginName,
+            skipCondition: pluginConfig.skipCondition || false,
+            js: pluginConfig.js || [],
+            css: pluginConfig.css || [],
+            autoload: true,
+            complete:function(){
+                if(typeof pluginConfig.windowVariable !== 'undefined'){
+                    window[pluginConfig.windowVariable].init().ready(function(){
+                        if (ajaxLoader) {
+                            $A.ajaxDocumentCover(0);
+                        }
+                        if(typeof pluginConfig.complete === 'function') {
+                            pluginConfig.complete.apply(this, []);
+                        }
+                        func.apply(this, []);
+                    })
+                }else{
+                    if (ajaxLoader) {
+                        $A.ajaxDocumentCover(0);
+                    }
+                }
+            }
+        }).run();
     };
 
     console.log('%c ' + ($API.name || 'A module') + ' was created by AutomizyProjectInitializer! ', 'background: #000000; color: #f7ffde; font-size:14px; border-radius:0 12px 12px 0');
