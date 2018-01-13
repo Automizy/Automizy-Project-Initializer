@@ -685,7 +685,7 @@ window.AutomizyProject = function(obj){
             css: pluginConfig.css || [],
             autoload: true,
             complete:function(){
-                if(typeof pluginConfig.windowVariable !== 'undefined'){
+                if(typeof pluginConfig.windowVariable !== 'undefined' && pluginConfig.windowVariable !== false){
                     window[pluginConfig.windowVariable].init().ready(function(){
                         if (ajaxLoader) {
                             $A.ajaxDocumentCover(0);
