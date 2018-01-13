@@ -699,6 +699,10 @@ window.AutomizyProject = function(obj){
                     if (ajaxLoader) {
                         $A.ajaxDocumentCover(0);
                     }
+                    if(typeof pluginConfig.complete === 'function') {
+                        pluginConfig.complete.apply(this, []);
+                    }
+                    func.apply(this, []);
                 }
             }
         }).run();
