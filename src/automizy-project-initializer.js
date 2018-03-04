@@ -2,6 +2,7 @@ define.amd = false;
 require([
     "js/core/core",
     "js/core/init",
+    "js/core/initFrom",
     "js/core/baseDir",
     "js/core/pluginLoader",
     "js/core/runTheFunctions",

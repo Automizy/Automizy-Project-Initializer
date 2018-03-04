@@ -17,7 +17,8 @@ define([], function (obj) {
     $API.permissionGroups = obj.permissionGroups || {};
     $API.config = obj.config || {
         dir:'.',
-        url:'https://app.automizy.com'
+        url:'https://app.automizy.com',
+        initFrom:''
     };
     $API.m = obj.m || {};
     $API.d = obj.d || {};

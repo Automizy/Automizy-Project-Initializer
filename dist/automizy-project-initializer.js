@@ -21,7 +21,8 @@ window.AutomizyProject = function(obj){
     $API.permissionGroups = obj.permissionGroups || {};
     $API.config = obj.config || {
         dir:'.',
-        url:'https://app.automizy.com'
+        url:'https://app.automizy.com',
+        initFrom:''
     };
     $API.m = obj.m || {};
     $API.d = obj.d || {};
@@ -402,6 +403,15 @@ window.AutomizyProject = function(obj){
         }
 
         return t;
+    };
+
+    $API.initFrom = function(value){
+        var t = this;
+        if (typeof value !== 'undefined') {
+            t.config.initFrom = value;
+            return t;
+        }
+        return t.config.initFrom;
     };
 
     $API.baseDir = function(value){
